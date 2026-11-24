@@ -1,0 +1,26 @@
+name: Build GIPI APK
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android Compose Project
+        run: |
+          mkdir -p android-project/app/src/main/java/com/gipi/app
+          mkdir -p android-project/app/src/main/res/values
+          cp MainActivity.kt android-project/app/src/main/java/com/gipi/app/MainActivity.kt
+          
